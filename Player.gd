@@ -8,18 +8,7 @@ var PlayerAnimNode
 var anim = ""
 var animNew = ""
 
-# Converts any Vector2 coordinates or motion from the cartesian to the isometric system
-func cartesian_to_isometric(cartesian):
-	return Vector2(cartesian.x - cartesian.y, (cartesian.x + cartesian.y) / 2)
 
-
-# useful to convert mouse coordinates back to screen-space, and detect where the player wants to know.
-# If we want to add mouse-based controls, we'll need this function
-func isometric_to_cartesian(iso):
-	var cart_pos = Vector2()
-	cart_pos.x = (iso.x + iso.y * 2) / 2
-	cart_pos.y = - iso.x + cart_pos.x
-	return cart_pos
 
 
 func _ready():
@@ -49,8 +38,6 @@ func _fixed_process(delta):
 		RayNode.set_rotd(90)
 		
 	motion = motion.normalized()*MOTION_SPEED*delta
-# Isometric movement is movement like you're used to, converted to the isometric system
-	motion = cartesian_to_isometric(motion)
 	move(motion)
 	
 	var slide_attempts = 4
